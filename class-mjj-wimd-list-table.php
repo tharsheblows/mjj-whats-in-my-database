@@ -11,8 +11,8 @@ class MJJ_WIMD_List_Table extends MJJ_WP_List_Table_Copy {
 		$table_name = wp_kses( $table_name, array() );//not allowed nothing
 
 		parent::__construct( [
-			'singular' => sprintf( __( '%s column', 'mjj-wimd' ), $table_name ),
-			'plural'   => sprintf( __( '%s columns', 'mjj-wimd' ), $table_name ),
+			'singular' => sprintf( __( '%s column', 'mjj-whats-in-my-database' ), $table_name ),
+			'plural'   => sprintf( __( '%s columns', 'mjj-whats-in-my-database' ), $table_name ),
 		] );
 	}
 

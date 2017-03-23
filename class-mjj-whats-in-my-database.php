@@ -89,8 +89,8 @@ class MJJ_Whats_In_My_Database {
 ?>
 
 		<div class="mjj-wimd">
-				<h1><?php _e( 'What&rsquo;s in my database?', 'mjj-wimd' ); ?></h1>
-				<p><?php _e( 'Below is a list of tables in your database and their columns.', 'mjj-wimd' ); ?></p>
+				<h1><?php _e( 'What&rsquo;s in my database?', 'mjj-whats-in-my-database' ); ?></h1>
+				<p><?php _e( 'Below is a list of tables in your database and their columns.', 'mjj-whats-in-my-database' ); ?></p>
 <?php
 		$iteration = 0;
 
@@ -111,13 +111,13 @@ class MJJ_Whats_In_My_Database {
 ?>
 
 
-			<h2><?php printf( __( 'Table: %s', 'mjj-wimd' ), esc_html( $table->table_name ) ); ?></h2>
-			<p><?php printf( __( 'Number of rows: %d, Create time: %s ', 'mjj-wimd' ),
+			<h2><?php printf( __( 'Table: %s', 'mjj-whats-in-my-database' ), esc_html( $table->table_name ) ); ?></h2>
+			<p><?php printf( __( 'Number of rows: %d, Create time: %s ', 'mjj-whats-in-my-database' ),
 				$table_rows->count,
 				esc_attr( $table->create_time )
 			); ?></p>
 				
-			<button class="open-show-columns closed"><?php _e( 'Show columns', 'mjj-wimd' ); ?></button>
+			<button class="open-show-columns closed"><?php _e( 'Show columns', 'mjj-whats-in-my-database' ); ?></button>
 <?php
 			$list_table->prepare_items( $table_name );
 
