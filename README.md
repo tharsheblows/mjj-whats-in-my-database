@@ -6,4 +6,4 @@ The page is in Tools and a user needs the 'list_users' capability to view it.
 It might be an idea in the future to show all distinct meta_keys in wp_user_meta because sometimes people stash stuff in there, don't they?
 
 ## Screenshot of tools page
-![What's in my database tools page](/tharsheblows/mjj-whats-in-my-database/blob/master/screenshots/mjj-wimd-tools-page.jpg?raw=true)
+![What's in my database tools page](/screenshots/mjj-wimd-tools-page.jpg?raw=true)
