@@ -70,6 +70,15 @@ class MJJ_Whats_In_My_Database {
 
 	public static function make_tools_page() {
 
+		// capabilities and screen check
+		$current_screen = get_current_screen();
+		if ( 'tools_page_mjj-whats-in-my-database' !== $current_screen->id || ! current_user_can( 'list_users' ) ) {
+?>
+			<p>Sorry, you may not access this page</p>
+<?php
+			return;
+		}
+
 		require_once( 'class-mjj-wimd-list-table.php' );
 
 		global $wpdb;
