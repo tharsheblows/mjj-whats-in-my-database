@@ -87,7 +87,7 @@ class MJJ_Whats_In_My_Database {
 		$tables = $wpdb->get_results(
 			$wpdb->prepare(
 				'
-				SELECT TABLE_NAME as table_name, CREATE_TIME as create_time
+				SELECT TABLE_NAME as table_name, CREATE_TIME as create_time, TABLE_ROWS as est_table_rows
 				FROM INFORMATION_SCHEMA.TABLES 
 				WHERE TABLE_SCHEMA = %s
 				',
@@ -112,9 +112,20 @@ class MJJ_Whats_In_My_Database {
 			printf( '<div class="mjj-wimd-table %s">', $oddness );
 
 			$table_name = esc_attr( $table->table_name );
+			$est_table_rows = (int) $table->est_table_rows;
 			
 			// not in previous query because that gives an ever changing estimate sometimes and I find that distressing
-			$table_rows = MJJ_Whats_In_My_Database::count_rows_in_table( $table_name );
+			// but hmmmmm some queries are too big so let's just use the estimated value for that
+			if ( 50000 < $est_table_rows ) {
+				$table_rows = $est_table_rows;
+				$estimated = true;
+			}
+			else {
+				$table_rows_obj = MJJ_Whats_In_My_Database::count_rows_in_table( $table_name );
+				$table_rows = $table_rows_obj->count;
+				$estimated = false;
+			}
+			
 			// the columns will be in a List Table
 			$list_table = new MJJ_WIMD_List_Table( $table_name );
 ?>
@@ -122,10 +133,16 @@ class MJJ_Whats_In_My_Database {
 
 			<h2><?php printf( __( 'Table: %s', 'mjj-whats-in-my-database' ), esc_html( $table->table_name ) ); ?></h2>
 			<p><?php printf( __( 'Number of rows: %d, Create time: %s ', 'mjj-whats-in-my-database' ),
-				$table_rows->count,
+				$table_rows,
 				esc_attr( $table->create_time )
 			); ?></p>
-				
+
+			<?php if( $estimated ) : ?>
+			
+				<p><?php _e( 'The number of rows is over 50,000 and is an estimate. That estimate might change massively every single time you reload the page. Don&rsquo;t be alarmed. It doesn&rsquo;t really matter, the important thing is that you now know you&rsquo;ve got a lot of rows in there.', 'mjj-whats-in-my-database' ); ?></p>	
+			
+			<?php endif; ?>
+		
 			<button class="open-show-columns closed"><?php _e( 'Show columns', 'mjj-whats-in-my-database' ); ?></button>
 <?php
 			$list_table->prepare_items( $table_name );
